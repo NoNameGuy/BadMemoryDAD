@@ -3,12 +3,12 @@
 <div class="row justify-content-between">
 
   <!--Div Esquerda-->
-  <div class="col-lg-4" style="border:10px solid green;">
+  <div id="divLobby" class="col-lg-4" style="border:5px solid green;">
     <h4>LOBBY</h4>
   </div>
 
   <!--Div Direita-->
-  <div class="col-lg-8" style="border:10px solid black;">
+  <div id="divTab" class="col-lg-8" style="border:0px solid black;">
 
     <h4>TABULEIRO DE JOGO</h4>
 
