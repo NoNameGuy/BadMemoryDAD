@@ -8,7 +8,8 @@
         <title>MemoryGame</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
+
+        <link href="{!! asset('css/style.css') !!}" media="all" rel="stylesheet" type="text/css" />
 
     </head>
     <body>
@@ -17,8 +18,8 @@
         <a class="navbar-brand" href="#">BadMemoryGame</a>
         <form class="form-inline my-2 my-lg-0">
           <li>
-            <button class="btn btn-outline-success" type="submit">Login</button>
-            <button class="btn btn-outline-success" type="submit">Registar</button>
+            <button class="btn btn-outline-success" type="submit" href="{{route('login')}}">Login</button>
+            <button class="btn btn-outline-success" type="submit" href="{{route('register')}}">Registar</button>
           </li>
         </form>
       </nav>
