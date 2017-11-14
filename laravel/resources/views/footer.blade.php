@@ -1,5 +1,5 @@
 <div>
-<footer class="navbar static-bottom navbar-dark bg-dark">
+<footer class="navbar fixed-bottom navbar-dark bg-dark">
   <div class="container">
     <p>BadMemoryDad Grupo 17 - Memory Game - © 2017</p>
   </div>
