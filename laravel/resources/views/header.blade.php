@@ -23,4 +23,34 @@
           </li>
         </form>
       </nav>
+
+      <nav class="navbar static-top navbar-light" style="background-color: grey;">
+        <a class="navbar-brand">Criar Novo Jogo</a>
+
+            <div class="form-group row">
+                <label for="nJogadores"><p>Jogadores:</p></label>
+                <div class="col">
+                  <select class="form-control" id="nJogadores">
+                    <option>1</option>
+                  </select>
+                </div>
+
+                <label for="nLinhas"><p>Linhas: </p></label>
+                <div class="col">
+                  <select class="form-control" id="nLinhas">
+                    <option>1</option>
+                  </select>
+                </div>
+
+                <label for="nColunas"><p>Colunas: </p></label>
+                <div class="col">
+                  <select class="form-control" id="nColunas">
+                    <option>1</option>
+                  </select>
+                </div>
+            </div>
+
+          <button type="button" class="btn btn-success">Criar Jogo</button>
+
+      </nav>
     </div>
