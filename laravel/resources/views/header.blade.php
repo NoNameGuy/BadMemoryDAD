@@ -18,8 +18,8 @@
         <a class="navbar-brand" href="#">BadMemoryGame</a>
         <form class="form-inline my-2 my-lg-0">
           <li>
-            <button class="btn btn-outline-success" type="submit" href="{{route('login')}}">Login</button>
-            <button class="btn btn-outline-success" type="submit" href="{{route('register')}}">Registar</button>
+            <button class="btn btn-outline-success" type="submit">Login</button>
+            <button class="btn btn-outline-success" type="submit">Registar</button>
           </li>
         </form>
       </nav>
