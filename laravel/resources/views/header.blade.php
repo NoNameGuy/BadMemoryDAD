@@ -15,12 +15,13 @@
     <body>
     <div>
       <nav class="navbar static-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">BadMemoryGame</a>
+        <a class="navbar-brand" href="/">BadMemoryGame</a>
         <form class="form-inline my-2 my-lg-0">
           <li>
-            <button class="btn btn-outline-success" type="submit">Login</button>
-            <button class="btn btn-outline-success" type="submit">Registar</button>
+            <a href="{{ route('login') }}"><button class="btn btn-outline-success" type="button">Login</button></a>
+            <a href="{{ route('register') }}"><button class="btn btn-outline-success" type="button">Registar</button></a>
           </li>
+
         </form>
       </nav>
 
