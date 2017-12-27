@@ -12,6 +12,3 @@
 */
 
 Route::get('/','VueController@index');
-
-
-Route::get('/userProfile','VueController@userProfile');

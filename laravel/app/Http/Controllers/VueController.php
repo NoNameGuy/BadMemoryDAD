@@ -9,10 +9,4 @@ class VueController extends Controller
         return view('vue.index');
     }
 
-
-    public function userProfile()
-    {
-        return view('vue.user.profile');
-    }
-
 }

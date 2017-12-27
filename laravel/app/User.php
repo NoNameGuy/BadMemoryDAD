@@ -18,8 +18,7 @@ class User extends Authenticatable
         'name',
         'email', 
         'age',
-        'nickname',
-        'blocked'
+        'department_id',
     ];
 
     /**
@@ -28,8 +27,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'admin'
+        'password', 'remember_token',
     ];
 
-   
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }
