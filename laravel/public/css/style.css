@@ -1,29 +1,9 @@
-html {
-    background: url("/img/background.png");
+﻿@charset "utf-8";
+/* Custom rules */
+.inline {
+    display: inline-block;
 }
 
-footer {
-
-  color: white;
-
-}
-
-#divLobby {
-
-   background: url("/img/background.png");
-   border:5px solid green;
-
-
-}
-
-#divTab {
-
-   border:5px solid black;
-
-}
-
-h4 {
-
-  text-align: center;
-
+.error {
+	color: red;
 }
