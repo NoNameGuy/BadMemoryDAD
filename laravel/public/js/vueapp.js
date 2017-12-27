@@ -46768,7 +46768,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -46807,16 +46807,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            title: 'Memory',
-            showSuccess: false,
-            showFailure: false,
-            successMessage: '',
-            failMessage: '',
+            title: 'Memory Game',
+            //showSuccess: false,
+            //showFailure: false,
+            //successMessage: '',
+            //failMessage: '',
             currentValue: 1,
             gameEnded: false,
             player1User: undefined,
-            player2User: undefined,
-            board: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            board: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         };
     },
     methods: {
@@ -46827,18 +46826,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         clickPiece: function clickPiece(index) {
             if (this.board[index] || this.gameEnded) return;
             this.board[index] = this.currentValue;
-            this.successMessage = this.currentPlayer + ' has Played';
-            this.showSuccess = true;
-            this.currentValue = this.currentValue == 1 ? 2 : 1;
+            //this.successMessage = this.currentPlayer+' has Played';
+            //this.showSuccess = true;
+            this.currentValue = 1;
             this.checkGameEnded();
         },
         restartGame: function restartGame() {
             console.log('restartGame');
-            this.board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-            this.showSuccess = false;
-            this.showFailure = false;
-            this.successMessage = '';
-            this.failMessage = '';
+            this.board = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            //this.showSuccess= false;
+            //this.showFailure= false;
+            //this.successMessage= '';
+            //this.failMessage= '';
             this.currentValue = 1;
             this.gameEnded = false;
         },
@@ -46849,19 +46848,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.board[0] == value && this.board[1] == value && this.board[2] == value || this.board[3] == value && this.board[4] == value && this.board[5] == value || this.board[6] == value && this.board[7] == value && this.board[8] == value || this.board[0] == value && this.board[3] == value && this.board[6] == value || this.board[1] == value && this.board[4] == value && this.board[7] == value || this.board[2] == value && this.board[5] == value && this.board[8] == value || this.board[0] == value && this.board[4] == value && this.board[8] == value || this.board[2] == value && this.board[4] == value && this.board[6] == value;
         },
         checkGameEnded: function checkGameEnded() {
-            if (this.hasRow(1)) {
-                this.successMessage = this.playerName(1) + ' won the Game';
-                this.showSuccess = true;
-                this.gameEnded = true;
-            }
-            if (this.hasRow(2)) {
-                this.successMessage = this.playerName(2) + ' won the Game';
-                this.showSuccess = true;
-                this.gameEnded = true;
-            }
             if (this.isBoardComplete()) {
-                this.successMessage = 'The Game ended in a Tie';
-                this.showSuccess = true;
+                //this.successMessage = this.playerName(1) + ', you win!';
+                //this.showSuccess = true;
                 this.gameEnded = true;
             }
             return false;
@@ -46881,29 +46870,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // ----------------------------------------------------------------------------------------
         playerName: function playerName(playerNumber) {
             console.log(playerNumber);
-            console.log(this.player1User);
-            if (this.player1User != undefined && playerNumber == 1) {
-                return this.player1User.name;
-            }
-            if (this.player2User != undefined && playerNumber == 2) {
-                return this.player2User.name;
-            }
             return 'Player ' + playerNumber;
-        }
-    },
-    computed: {
-        currentPlayer: function currentPlayer() {
-            console.log(this.currentValue);
-            console.log(this.playerName(this.currentValue));
-            return this.playerName(this.currentValue);
         }
     },
     mounted: function mounted() {
         if (this.$root.$data.player1) {
             this.player1User = this.$root.$data.player1;
-        }
-        if (this.$root.$data.player2) {
-            this.player2User = this.$root.$data.player2;
         }
     }
 });
@@ -46922,54 +46894,10 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c("h2", [_vm._v("Current Player : " + _vm._s(_vm.currentPlayer))]),
-      _vm._v(" "),
       _c("br")
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "game-zone-content" }, [
-      _vm.showSuccess
-        ? _c("div", { staticClass: "alert alert-success" }, [
-            _c(
-              "button",
-              {
-                staticClass: "close-btn",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    _vm.showSuccess = false
-                  }
-                }
-              },
-              [_vm._v("×")]
-            ),
-            _vm._v(" "),
-            _c("strong", [
-              _vm._v(_vm._s(_vm.successMessage) + "     "),
-              _c(
-                "a",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.gameEnded,
-                      expression: "gameEnded"
-                    }
-                  ],
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.restartGame($event)
-                    }
-                  }
-                },
-                [_vm._v("Restart")]
-              )
-            ])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "div",
         { staticClass: "board" },
