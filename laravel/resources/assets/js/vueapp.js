@@ -17,7 +17,7 @@ const user = Vue.component('user', require('./components/user.vue'));
 const department = Vue.component('department', require('./components/departmentList.vue'));
 
 const singleplayerMode = Vue.component('singleplayerMode', require('./components/singleplayerMode.vue'));
-const multiplayerMode = Vue.component('multiplayerMode', require('./components/multiplayerMode.vue'));
+//const multiplayerMode = Vue.component('multiplayerMode', require('./components/multiplayerMode.vue'));
 
 const routes = [
   { path: '/', redirect: '/users' },
@@ -25,7 +25,7 @@ const routes = [
   { path: '/departments', component: department },
 
   { path: '/singleplayerMode', component: singleplayerMode },
-  { path: '/multiplayerMode', component: multiplayerMode }
+  //{ path: '/multiplayerMode', component: multiplayerMode }
 
 ];
 
