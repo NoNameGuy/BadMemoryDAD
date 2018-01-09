@@ -56,33 +56,31 @@
 	            this.showSuccess = false;
 	        },
 	        getUsers: function(){
-
-						/* buscar o user logado através do token guardado na LocalStorage */
-						let auth_user_token = {
-																	headers: {
-																			'Authorization': 'Bearer ' + localStorage.getItem("access_token")
-																		}
-																	};
-
+				/* buscar o user logado através do token guardado na LocalStorage */
+				let auth_user_token = {
+									headers: {
+											'Authorization': 'Bearer ' + localStorage.getItem("access_token")
+										}
+									};
 	            axios.get('api/users', auth_user_token)
 	                .then(response=>{
-																	this.users = response.data.data;
-																	console.log(this.users);
-																 });
-					},
-					childMessage: function(message){
-							this.showSuccess = true;
-				      this.successMessage = message;
-					}
+									this.users = response.data.data;
+									console.log(this.users);
+								});
 			},
+			childMessage: function(message){
+			  this.showSuccess = true;
+		      this.successMessage = message;
+			}
+		},
 	    components: {
 	    	'user-list': UserList,
 	    	'user-edit': UserEdit
 	    },
 	    mounted() {
-					this.getUsers();
-				}
-}
+			this.getUsers();
+		}
+	}
 
 </script>
 
