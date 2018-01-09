@@ -1,6 +1,6 @@
 <template>
 
-<form @submit.prevent=register(user)">
+<form @submit.prevent="register(user)">
   <div class="control-group">
     <label class="control-label" for="username">Username</label>
     <div class="controls">
