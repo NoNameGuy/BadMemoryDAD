@@ -19,7 +19,7 @@ var app = require('http').createServer();
 
 var io = require('socket.io')(app);
 
-var TicTacToeGame = require('./gamemodel.js');
+var MemoryGame = require('./gamemodel.js');
 var GameList = require('./gamelist.js');
 
 app.listen(8080, function(){
@@ -36,18 +36,27 @@ io.on('connection', function (socket) {
     console.log('client has connected');
 
     socket.on('create_game', function (data){
-    	let game = games.createGame(data.playerName, socket.id);
+    	let game = games.createGame(socket.id);
 		socket.join(game.gameID);
+        console.log('game was created');
 		// Notifications to the client
 		socket.emit('my_active_games_changed');
 		io.emit('lobby_changed');
     });
 
+
     socket.on('join_game', function (data){
-    	let game = games.joinGame(data.gameID, data.playerName, socket.id);
+    	let game = games.joinGame(data.gameID, socket.id);
 		socket.join(game.gameID);
+        console.log('client joined game');
 		io.to(game.gameID).emit('my_active_games_changed');
 		io.emit('lobby_changed');
+    });
+
+    socket.on('start_game', function (data){
+        let game = games.startGame(data.gameID, socket.id);
+        console.log('game started');
+        io.to(game.gameID).emit('my_active_games_changed');
     });
 
     socket.on('remove_game', function (data){
@@ -61,17 +70,12 @@ io.on('connection', function (socket) {
 			socket.emit('invalid_play', {'type': 'Invalid_Game', 'game': null});
 			return;
 		}
-		var numPlayer = 0;
-		if (game.player1SocketID == socket.id) {
-			numPlayer = 1;
-		} else if (game.player2SocketID == socket.id) {
-			numPlayer = 2;
-		} 
-		if (numPlayer === 0) {
+        let playerSocket = socket.id;
+		/*if (playerTurn > game.players.length || playerTurn < 0) {
 			socket.emit('invalid_play', {'type': 'Invalid_Player', 'game': game});
 			return;
-		}
-		if (game.play(numPlayer, data.index)) {
+		}*/
+		if (game.play( playerSocket, data.x, data.y)) {
 			io.to(game.gameID).emit('game_changed', game);
 		} else {
 			socket.emit('invalid_play', {'type': 'Invalid_Play', 'game': game});
@@ -89,7 +93,7 @@ io.on('connection', function (socket) {
     	socket.emit('my_active_games', my_games);
     });
 
-    socket.on('get_my_lobby_games', function (){
+    socket.on('get_my_lobby_games', function (data){
     	var my_games= games.getLobbyGamesOf(socket.id);
     	socket.emit('my_lobby_games', my_games);
     });

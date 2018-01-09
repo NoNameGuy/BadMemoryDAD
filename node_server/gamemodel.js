@@ -1,32 +1,37 @@
 /*jshint esversion: 6 */
 
-class TicTacToeGame {
-    constructor(ID, player1Name) {
+class MemoryGame {
+    constructor(ID, gameOwnerSocket) {
         this.gameID = ID;
+        this.line = 0;
+        this.column = 0;
         this.gameEnded = false;
         this.gameStarted = false;
-        this.player1= player1Name;
-        this.player2= '';
-        this.playerTurn = 1;
+        this.gameOwner= gameOwnerSocket;
+        this.playerTurn = 0;
         this.winner = 0;
-        this.board = [0,0,0,0,0,0,0,0,0];
+        this.boardImages;
+        this.boardHidden;
+        this.numPlayers = 0;
+        this.players = [];
+        this.playerScore = [];
+        this.join(gameOwnerSocket);
+        this.piece1x=null;
+        this.piece2x=null;
+        this.piece1y=null;
+        this.piece2y=null;
+
     }
 
-    join(player2Name){
-        this.player2= player2Name;
-        this.gameStarted = true;
+    join(socketId){ // chamar pelo socket id do user
+      for(var i = 0; i < this.players.lenght; i++){
+        if (this.players[i] == socketId) { //compara o socket id dos jogadores
+          return;
+        }
+      }
+        this.numPlayers ++; //add 1 ao contador de jogadores
+        this.players.push(socketId); // push do socket id do novo jogador para o jogo a que se juntou
     }
-
-    hasRow(value){
-        return  ((this.board[0]==value) && (this.board[1]==value) && (this.board[2]==value)) || 
-                ((this.board[3]==value) && (this.board[4]==value) && (this.board[5]==value)) || 
-                ((this.board[6]==value) && (this.board[7]==value) && (this.board[8]==value)) || 
-                ((this.board[0]==value) && (this.board[3]==value) && (this.board[6]==value)) || 
-                ((this.board[1]==value) && (this.board[4]==value) && (this.board[7]==value)) || 
-                ((this.board[2]==value) && (this.board[5]==value) && (this.board[8]==value)) || 
-                ((this.board[0]==value) && (this.board[4]==value) && (this.board[8]==value)) || 
-                ((this.board[2]==value) && (this.board[4]==value) && (this.board[6]==value));
-    }  
 
     checkGameEnded(){
         if (this.hasRow(1)) {

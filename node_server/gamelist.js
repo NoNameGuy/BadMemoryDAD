@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-var TicTacToeGame = require('./gamemodel.js');
+var MemoryGame = require('./gamemodel.js');
 
 class GameList {
 	constructor() {
@@ -13,23 +13,37 @@ class GameList {
     	return game;
     }
 
-    createGame(playerName, socketID) {
+    createGame(socketID) {
     	this.contadorID = this.contadorID+1;
-    	var game = new TicTacToeGame(this.contadorID, playerName);
-    	game.player1SocketID = socketID;
+    	var game = new MemoryGame(this.contadorID, socketID);
+    	//game.players[1] = socketID;
     	this.games.set(game.gameID, game);
     	return game;
     }
 
-    joinGame(gameID, playerName, socketID) {
+    joinGame(gameID, socketID) {
     	let game = this.gameByID(gameID);
     	if (game===null) {
     		return null;
     	}
-    	game.join(playerName);
-    	game.player2SocketID = socketID;
+
+        game.join(socketID);
+    	//game.player2SocketID = socketID;
     	return game;
     }
+
+    startGame(gameID, socketID) {
+
+        let game = this.gameByID(gameID);
+        if (game===null) {
+            return null;
+        }
+
+        game.startGame();
+        //game.player2SocketID = socketID;
+        return game;
+    }
+
 
     removeGame(gameID, socketID) {
     	let game = this.gameByID(gameID);
@@ -40,7 +54,7 @@ class GameList {
     		game.player1SocketID = "";
     	} else if (game.player2SocketID == socketID) {
     		game.player2SocketID = "";
-    	} 
+    	}
     	if ((game.player1SocketID === "") && (game.player2SocketID === "")) {
     		this.games.delete(gameID);
     	}
@@ -50,24 +64,29 @@ class GameList {
     getConnectedGamesOf(socketID) {
     	let games = [];
     	for (var [key, value] of this.games) {
-    		if ((value.player1SocketID == socketID) || (value.player2SocketID == socketID)) {
-    			games.push(value);
-    		}
-		}
-		return games;
+            for(let i=0; i<value.players.length; i++){
+                if ((value.players[i] === socketID)) {
+                    games.push(value);
+                }
+            }
+
+        }
+        return games;
     }
 
     getLobbyGamesOf(socketID) {
-    	let games = [];
-    	for (var [key, value] of this.games) {
-    		if ((!value.gameStarted) && (!value.gameEnded))  {
-    			if ((value.player1SocketID != socketID) && (value.player2SocketID != socketID)) {
-    				games.push(value);
-    			}
-    		}
-		}
-		return games;
+        let games = [];
+        for (var [key, value] of this.games) {
+          if ((!value.gameStarted) && (!value.gameEnded))  {
+            for(let i=0; i<value.players.length; i++){
+                if ((value.players[i] !== socketID)) {
+                    games.push(value);
+                }
+            }
+        }
     }
+    return games;
+}
 }
 
 module.exports = GameList;
