@@ -1,7 +1,6 @@
 <template>
 
-<!-- falta aqui o form do tipo submit e cenas -->
-<form v-on="submit.prevent=register(user)">
+<form @submit.prevent=register(user)">
   <div class="control-group">
     <label class="control-label" for="username">Username</label>
     <div class="controls">

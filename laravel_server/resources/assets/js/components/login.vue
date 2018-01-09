@@ -1,6 +1,6 @@
 <template>
 
-  <form action="action_page.php">
+  <form @submit.prevent="login(user)">
    <div class="container">
      <div class="form-group">
        <label>Email: </label>
@@ -11,7 +11,7 @@
        <label>Password: </label>
        <input type="password" v-model="user.password" placeholder="Enter Your Password" id="inputPassword" name="password" required>
      </div>
-     <button type="submit" v-on:click().prevent="login()">Login</button>
+       <button type="submit" v-on:click().prevent="login()">Login</button>
        <button type="submit" v-on:click().prevent="register()">Register</button>
    </div>
 
@@ -28,8 +28,8 @@ export default {
   data() {
     return {
       user : {
-        email:"",
-        password:""
+        email: '',
+        password: ''
       },
       loginError: false
     };
@@ -54,10 +54,6 @@ export default {
         loginError = true;
         console.log(loginError);
       });
-
-    },
-    register: function() {
-        this.$router.push('/register'); // vou chamar um component do appvue.vue
 
     },
   }

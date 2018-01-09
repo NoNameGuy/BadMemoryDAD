@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-define('YOUR_SERVER_URL', 'http://memorygame.dev');
+define('YOUR_SERVER_URL', 'http://badmemory.test');
 // Check "oauth_clients" table for next 2 values:
 define('CLIENT_ID', '2');
 define('CLIENT_SECRET','O6XUA7EQ51qEG4CCEVgUuN41lln3XXSFYbmeb2G4');

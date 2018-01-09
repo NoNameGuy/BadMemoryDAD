@@ -42,7 +42,5 @@ const router = new VueRouter({
 const app = new Vue({
   router,
   data:{
-    player1:undefined,
-    player2: undefined,
   }
 }).$mount('#app');
