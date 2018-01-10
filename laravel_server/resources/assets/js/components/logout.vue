@@ -31,7 +31,7 @@ export default {
             	.then(response =>{
             		// console.log(response);
             		if(response.status == 200) { // tudo ok para remover o token
-	            		localStorage.remove('acess_token');
+	            		localStorage.remove('access_token');
 	            		console.log('Token removido');
             		}
         		}).catch(logoutError => {

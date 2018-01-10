@@ -1,21 +1,24 @@
 <template v-if="localStorage.getItem('token') == null">
 
   <form @submit.prevent="login(user)">
-   <div class="container">
-     <div class="form-group">
-       <label>Email: </label>
-       <input type="text" v-model="user.email" placeholder="Enter Your Email" id="inputEmail" name="email" required>
-     </div>
-     <div class="form-group">
-       <label>Password: </label>
-       <input type="password" v-model="user.password" placeholder="Enter Your Password" id="inputPassword" name="password" required>
-     </div>
-       <button type="submit" v-on:click().prevent="login()">Login</button>
-       <button type="submit" v-on:click().prevent="register()">Register</button>
-   </div>
+      <div class="text-left">
+          <div class="form-group">
+              <label for="email">Email</label>
+              <input value="luisa82@example.net" type="email" class="form-control" id="email" v-model="user.email">
+          </div>
 
+          <div class="form-group">
+              <label for="password">Password</label>
+              <input value="secret" type="password" class="form-control" id="password" v-model="user.password">
+          </div>
+      </div>
 
- </form>
+      <div class="text-center">
+          <a class="btn btn-primary" v-on:click.prevent="login()">Login</a>
+          <br><br>
+          <a class="btn btn-default" to="/register">Register</a>
+      </div>
+  </form>
 
 
 </template>
@@ -27,35 +30,36 @@ export default {
   data() {
     return {
       user : {
-        email: '',
-        password: ''
+        email: null,
+        password: null,
       },
-      loginError: false
+        loginError: false
     };
   },
   methods: {
-    login() {
-      axios.post('api/login', this.user, { // user que vem associado aos campos de email e password
-        headers: {
-          'Content-type' : 'application/json'
-        }
-      }).then(responde => {
+    login: function() {
+      //console.log(user);
+      //let user = {email : user.email, password : user.password};
+      axios.post('/api/login', this.user, {
+        headers: {'Content-Type' : 'application/json'}
+      }).then(response => {
         // buscar o token do user logado
-        let token = response.data.acess_token;
+        console.log('Response: ' + response);
+        let token = response.data.access_token;
         // guardar na localStorage o token
         localStorage.setItem('token', token);
         // user já se encontra logado e com a sessão guardada
-        console.log(token);
-        console.log('este e o meu token bro!' + token + '!!!!!');
-        console.log(this.user);
-        this.$router.push('/users'); // vou chamar um component do appvue.vue
+
+        this.$router.push('/');
       }).catch(loginError => {
         // Something went wrong!
-        loginError = true;
-        console.log(loginError);
+        console.log('Login Error: ' + loginError);
+
+        this.loginError = true;
+
       });
 
-    },
+    }
   }
 
 
