@@ -46829,15 +46829,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // guardar na localStorage o token
         localStorage.setItem('token', token);
         // user já se encontra logado e com a sessão guardada
-        console.log('AQUI CHEGA!');
 
-        _this.$router.push('/multiplayerGame');
+        _this.$router.push('/');
       }).catch(function (loginError) {
         // Something went wrong!
         console.log('Login Error: ' + loginError);
 
         _this.loginError = true;
       });
+    },
+    register: function register() {
+      this.$router.push('/register');
     }
   }
 
@@ -46936,7 +46938,15 @@ var render = function() {
         _vm._v(" "),
         _c(
           "a",
-          { staticClass: "btn btn-default", attrs: { to: "/register" } },
+          {
+            staticClass: "btn btn-default",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.register()
+              }
+            }
+          },
           [_vm._v("Register")]
         )
       ])
@@ -47189,41 +47199,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       user: {
-        username: '',
-        email: '',
-        password: '',
-        name: ''
+        email: null,
+        password: null,
+        name: null
 
-      },
-      registerError: false
+      }
+      //registerError: false
     };
   },
 
   methods: {
     register: function register() {
-      axios.post('api/register', {
-        username: user.username,
-        email: user.email,
-        password: user.password,
-        name: user.name
+      axios.post('/api/register', {
+        email: this.user.email,
+        password: this.user.password,
+        name: this.user.name
       }).then(function (response) {
-        // guarda logo o token do registado
-        localStorage.setItem('token', response.data.access_token);
+        console.log(response);
+        //this.$router.push('/');
       }).catch(function (registerError) {
-        console.log(registerError);
+        // Something went wrong!
+        //this.registerError = true;
+
+        console.log('Login Error: ' + registerError);
       });
     }
   }
@@ -47249,38 +47253,6 @@ var render = function() {
       }
     },
     [
-      _c("div", { staticClass: "control-group" }, [
-        _c(
-          "label",
-          { staticClass: "control-label", attrs: { for: "username" } },
-          [_vm._v("Username")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "controls" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.user.username,
-                expression: "user.username"
-              }
-            ],
-            staticClass: "input-xlarge",
-            attrs: { type: "text", id: "username", name: "username" },
-            domProps: { value: _vm.user.username },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.user, "username", $event.target.value)
-              }
-            }
-          })
-        ])
-      ]),
-      _vm._v(" "),
       _c("div", { staticClass: "control-group" }, [
         _c("label", { staticClass: "control-label", attrs: { for: "email" } }, [
           _vm._v("E-mail")
@@ -47377,22 +47349,27 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "control-group" }, [
+        _c("div", { staticClass: "controls" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-default",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.register()
+                }
+              }
+            },
+            [_vm._v("Register")]
+          )
+        ])
+      ])
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "control-group" }, [
-      _c("div", { staticClass: "controls" }, [
-        _c("button", { staticClass: "btn btn-success" }, [_vm._v("Register")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

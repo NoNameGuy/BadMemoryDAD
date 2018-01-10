@@ -30,7 +30,6 @@ class UsersTableSeeder extends Seeder
             'email' => $faker->unique()->safeEmail,
             'password' => $password ?: $password = bcrypt('secret'),
             'remember_token' => str_random(10),
-            'age' => $faker->numberBetween(18, 75),
             //'department_id' => $departmentId,
             'created_at' => $createdAt,
             'updated_at' => $updatedAt,

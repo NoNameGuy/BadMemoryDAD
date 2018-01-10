@@ -25,7 +25,6 @@ class InitialMigrations extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->integer('age');
             //$table->integer('department_id')->unsigned();
             //$table->foreign('department_id')->references('id')->on('departments');
             $table->timestamps();
@@ -45,7 +44,6 @@ class InitialMigrations extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
         Schema::dropIfExists('password_resets');
         Schema::dropIfExists('users');
     }

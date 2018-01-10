@@ -1,12 +1,5 @@
 <template>
-
 <form @submit.prevent="register(user)">
-  <div class="control-group">
-    <label class="control-label" for="username">Username</label>
-    <div class="controls">
-      <input type="text" v-model="user.username" id="username" name="username" class="input-xlarge">
-    </div>
-  </div>
 
   <div class="control-group">
     <label class="control-label" for="email">E-mail</label>
@@ -32,7 +25,7 @@
   <div class="control-group">
     <!-- Button -->
     <div class="controls">
-      <button class="btn btn-success">Register</button>
+      <a class="btn btn-default" v-on:click.prevent="register()">Register</a>
     </div>
   </div>
 
@@ -46,29 +39,32 @@ export default {
   data() {
     return {
       user : {
-        username : '',
-        email: '',
-        password : '',
-		    name : '',
+        email: null,
+        password : null,
+		    name : null,
 
       },
-      registerError: false
+      //registerError: false
     };
   },
   methods: {
     register: function() {
-    	axios.post('api/register', {
-    							username : user.username,
-    							email : user.email,
-    							password : user.password,
-    							name : user.name
-    						}).then( function(response) {
-    		// guarda logo o token do registado
-    		localStorage.setItem('token', response.data.access_token);
+    	axios.post('/api/register', {
+    							email : this.user.email,
+    							password : this.user.password,
+    							name : this.user.name
+    						}).then(response => {
+                  console.log(response);
+                  //this.$router.push('/');
     	}).catch(registerError => {
-    		console.log(registerError);
-    	});
-    },
+        // Something went wrong!
+        //this.registerError = true;
+
+        console.log('Login Error: ' + registerError);
+
+
+      });
+    }
   }
 
 

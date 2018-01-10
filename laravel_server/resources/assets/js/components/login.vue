@@ -16,7 +16,7 @@
       <div class="text-center">
           <a class="btn btn-primary" v-on:click.prevent="login()">Login</a>
           <br><br>
-          <a class="btn btn-default" to="/register">Register</a>
+          <a class="btn btn-default" v-on:click.prevent="register()">Register</a>
       </div>
   </form>
 
@@ -58,6 +58,10 @@ export default {
         this.loginError = true;
 
       });
+
+    },
+    register() {
+      this.$router.push('/register');
 
     }
   }
