@@ -26,7 +26,7 @@
 	export default {
         data: function(){
 			return {
-                title: 'Multiplayer TicTacToe',
+                title: 'Multiplayer MemoryGame',
                 currentPlayer: 'Player X',
                 lobbyGames: [],
                 activeGames: [],
@@ -80,7 +80,7 @@
                     }
                 }
             },
-        },        
+        },
         methods: {
             loadLobby(){
                 this.$socket.emit('get_my_lobby_games');
@@ -94,7 +94,7 @@
                     return;
                 }
                 else {
-                    this.$socket.emit('create_game', { playerName: this.currentPlayer });   
+                    this.$socket.emit('create_game', { playerName: this.currentPlayer });
                 }
             },
             join(game){
@@ -102,13 +102,13 @@
                     alert('Cannot join a game because your name is the same as Player 1');
                     return;
                 }
-                this.$socket.emit('join_game', {gameID: game.gameID, playerName: this.currentPlayer });   
+                this.$socket.emit('join_game', {gameID: game.gameID, playerName: this.currentPlayer });
             },
             play(game, index){
-                this.$socket.emit('play', {gameID: game.gameID, index: index });   
+                this.$socket.emit('play', {gameID: game.gameID, index: index });
             },
             close(game){
-                this.$socket.emit('remove_game', {gameID: game.gameID });   
+                this.$socket.emit('remove_game', {gameID: game.gameID });
             }
         },
         components: {
@@ -122,6 +122,6 @@
     }
 </script>
 
-<style>	
-    
+<style>
+
 </style>

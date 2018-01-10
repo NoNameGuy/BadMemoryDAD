@@ -34,7 +34,7 @@ export default {
     };
   },
   methods: {
-    login: function (){
+    login() {
       axios.post('api/login', this.user, { // user que vem associado aos campos de email e password
         headers: {
           'Content-type' : 'application/json'
@@ -46,6 +46,7 @@ export default {
         localStorage.setItem('token', token);
         // user já se encontra logado e com a sessão guardada
         console.log(token);
+        console.log('este e o meu token bro!' + token + '!!!!!');
         console.log(this.user);
         this.$router.push('/users'); // vou chamar um component do appvue.vue
       }).catch(loginError => {

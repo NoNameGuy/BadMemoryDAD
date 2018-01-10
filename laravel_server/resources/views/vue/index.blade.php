@@ -4,7 +4,7 @@
 
 @section('content')
     <router-link to="/users">Users</router-link> -
-    @if (!Auth::user)
+    @if (!Auth::user())
 	    <router-link to="/login">Login</router-link> -
 	    <router-link to="/register">Register</router-link> -
     @else

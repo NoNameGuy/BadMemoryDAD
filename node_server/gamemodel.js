@@ -100,6 +100,28 @@ class MemoryGame {
 
     play(playerNumber, index){
 
+      //jogo ja começou
+
+      //jogo ainda nao acabou
+
+      //Estado da quadricula ? hidden ? Jogada valida
+
+      //player turn = 1 entao 1ª jogada do jogador e tem de virar a 2ª peça
+          // SE o player turn =1 vira 1ª carta e playerturn ++
+
+      // se playerTurn = 2 vira se a 2ª carta
+
+      // obter o "nome" das 2 cartas e comprar
+
+      // se for par (as duas o mesmo nome) entao pontuaçao++, cartas escolhidas visiveis sempre, e o plyer tem novo playerTurn
+
+      //se nao passa a jogada pro proximo jogador.
+      // cartas hidden (mesmo as que foram escolhidas) player playerTurn=1
+
+      //return true
+
+
+
     }
 
     shuffleArray(array){

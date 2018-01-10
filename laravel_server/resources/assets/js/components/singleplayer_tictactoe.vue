@@ -6,7 +6,7 @@
             <h2>Current Player : {{ currentPlayer }}</h2>
             <br>
         </div>
-        <div class="game-zone-content">       
+        <div class="game-zone-content">
             <div class="alert alert-success" v-if="showSuccess">
                 <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
                 <strong>{{ successMessage }} &nbsp;&nbsp;&nbsp;&nbsp;<a v-show="gameEnded" v-on:click.prevent="restartGame">Restart</a></strong>
@@ -18,8 +18,8 @@
                 </div>
             </div>
             <hr>
-        </div>  
-    </div>			
+        </div>
+    </div>
 </template>
 
 <script type="text/javascript">
@@ -65,13 +65,13 @@
             // GAME LOGIC - START
             // ----------------------------------------------------------------------------------------
             hasRow: function(value){
-                return  ((this.board[0]==value) && (this.board[1]==value) && (this.board[2]==value)) || 
-                ((this.board[3]==value) && (this.board[4]==value) && (this.board[5]==value)) || 
-                ((this.board[6]==value) && (this.board[7]==value) && (this.board[8]==value)) || 
-                ((this.board[0]==value) && (this.board[3]==value) && (this.board[6]==value)) || 
-                ((this.board[1]==value) && (this.board[4]==value) && (this.board[7]==value)) || 
-                ((this.board[2]==value) && (this.board[5]==value) && (this.board[8]==value)) || 
-                ((this.board[0]==value) && (this.board[4]==value) && (this.board[8]==value)) || 
+                return  ((this.board[0]==value) && (this.board[1]==value) && (this.board[2]==value)) ||
+                ((this.board[3]==value) && (this.board[4]==value) && (this.board[5]==value)) ||
+                ((this.board[6]==value) && (this.board[7]==value) && (this.board[8]==value)) ||
+                ((this.board[0]==value) && (this.board[3]==value) && (this.board[6]==value)) ||
+                ((this.board[1]==value) && (this.board[4]==value) && (this.board[7]==value)) ||
+                ((this.board[2]==value) && (this.board[5]==value) && (this.board[8]==value)) ||
+                ((this.board[0]==value) && (this.board[4]==value) && (this.board[8]==value)) ||
                 ((this.board[2]==value) && (this.board[4]==value) && (this.board[6]==value));
             },
             checkGameEnded: function(){
@@ -104,12 +104,12 @@
             },
             // ----------------------------------------------------------------------------------------
             // GAME LOGIC - END
-            // ----------------------------------------------------------------------------------------        
+            // ----------------------------------------------------------------------------------------
             playerName: function(playerNumber){
                 console.log(playerNumber);
                 console.log(this.player1User);
                 if(this.player1User != undefined && playerNumber == 1){
-                    return this.player1User.name;                
+                    return this.player1User.name;
                 }
                 if(this.player2User != undefined && playerNumber == 2){
                     return this.player2User.name;
@@ -118,7 +118,7 @@
             }
         },
         computed:{
-            currentPlayer: function(){ 
+            currentPlayer: function(){
                 console.log(this.currentValue);
                 console.log(this.playerName(this.currentValue));
                 return this.playerName(this.currentValue);
@@ -135,6 +135,6 @@
     }
 </script>
 
-<style>	
-    
+<style>
+
 </style>

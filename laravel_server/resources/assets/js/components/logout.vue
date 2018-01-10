@@ -10,13 +10,13 @@
 	        </div>
 	    </div>
 	</div>
-</template>	
-	    
+</template>
+
 
 <script type="text/javascript">
 export default {
     data: function(){
-        return { 
+        return {
         	// null obj
         }
     },
@@ -26,20 +26,20 @@ export default {
     		let headers = {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-            };
+            }};
             axios.post('api/logout', null, headers) // url, body, params
             	.then(response =>{
             		// console.log(response);
             		if(response.status == 200) { // tudo ok para remover o token
 	            		localStorage.remove('acess_token');
 	            		console.log('Token removido');
-            		}            		
+            		}
         		}).catch(logoutError => {
             		console.log(logoutError);
             	});
-        };
-    	},
-    } // end methods
+        }
+    	} // end methods
+		}
 
 
 </script>
