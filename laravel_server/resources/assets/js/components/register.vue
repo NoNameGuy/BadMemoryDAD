@@ -11,7 +11,7 @@
   <div class="control-group">
     <label class="control-label" for="email">E-mail</label>
     <div class="controls">
-      <input type="text" v-model="user.email" id="email" name="email" class="input-xlarge">
+      <input type="text" v-model.trim="user.email" id="email" name="email" class="input-xlarge">
     </div>
   </div>
 

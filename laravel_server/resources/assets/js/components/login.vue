@@ -1,11 +1,10 @@
-<template>
+<template v-if="localStorage.getItem('token') == null">
 
   <form @submit.prevent="login(user)">
    <div class="container">
      <div class="form-group">
        <label>Email: </label>
        <input type="text" v-model="user.email" placeholder="Enter Your Email" id="inputEmail" name="email" required>
-        <!-- v-model vai associar diretamente o user.email da vista com o email do user na parte do script -->
      </div>
      <div class="form-group">
        <label>Password: </label>

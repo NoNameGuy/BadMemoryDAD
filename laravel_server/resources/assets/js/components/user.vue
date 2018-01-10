@@ -4,7 +4,7 @@
 			<h1>{{ title }}</h1>
 		</div>
 
-		<user-list :users="users" @edit-click="editUser" @delete-click="deleteUser" @message="childMessage" ref="usersListRef"></user-list>
+		<user-list :users="users" @edit-click="editUser" @delete-click="deleteUser" @message="childMessage" ref="usersList"></user-list>
 
 		<div class="alert alert-success" v-if="showSuccess">
 
@@ -46,13 +46,13 @@
 	        },
 	        savedUser: function(){
 	            this.currentUser = null;
-	            this.$refs.usersListRef.editingUser = null;
+	            this.$refs.usersList.editingUser = null;
 	            this.showSuccess = true;
 	            this.successMessage = 'User Saved';
 	        },
 	        cancelEdit: function(){
 	            this.currentUser = null;
-	            this.$refs.usersListRef.editingUser = null;
+	            this.$refs.usersList.editingUser = null;
 	            this.showSuccess = false;
 	        },
 	        getUsers: function(){
