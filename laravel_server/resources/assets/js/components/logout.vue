@@ -15,31 +15,44 @@
 
 <script type="text/javascript">
 export default {
-    data: function(){
+    data (){
         return {
         	// null obj
-        }
+        };
+			},
+				computed: {
+						message(){
+								return "Sure you want logout?";
+						}
     },
     methods: {
-    	logout: function() {
+    	logout: function(){
+				console.log("estou dentro da logout function");
     		// apagar o token da localStorage
-    		let headers = {
+    		let logConfig = {
+
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-            }};
-            axios.post('api/logout', null, headers) // url, body, params
-            	.then(response =>{
-            		// console.log(response);
-            		if(response.status == 200) { // tudo ok para remover o token
-	            		localStorage.remove('access_token');
-	            		console.log('Token removido');
-            		}
-        		}).catch(logoutError => {
-            		console.log(logoutError);
-            	});
-        }
-    	} // end methods
-		}
+							'Authorization': 'Bearer ' + window.localStorage.getItem('access_token'),
+							// 'Accept' : 'application/json',
+					}
+				};
+				console.log("antes do axios");
+				console.log(logConfig);
 
-
+					axios.post('api/logout', null, logConfig)
+					.then(response => {
+					if(response.status == 200){
+							window.localStorage.removeItem('access_token');
+							console.log("Token removed");
+					}
+					console.log(response);
+			}).catch(error => {
+					console.log(error);
+			});
+	}
+}
+}
 </script>
+
+<style scoped>
+</style>

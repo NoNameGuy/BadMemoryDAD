@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 define('YOUR_SERVER_URL', 'http://badmemory.test');
 // Check "oauth_clients" table for next 2 values:
 define('CLIENT_ID', '2');
-define('CLIENT_SECRET','O6XUA7EQ51qEG4CCEVgUuN41lln3XXSFYbmeb2G4');
+define('CLIENT_SECRET','KN0kCLNhCPFfjz8PTLqnaGU4Kn6qzu3ToRtcHIk5');
 
 class LoginControllerAPI extends Controller
 {
@@ -35,6 +35,7 @@ class LoginControllerAPI extends Controller
 
     public function logout()
     {
+      echo "LCAPI";
         \Auth::guard('api')->user()->token()->revoke();
         \Auth::guard('api')->user()->token()->delete();
         return response()->json(['msg'=>'Token revoked'], 200);
