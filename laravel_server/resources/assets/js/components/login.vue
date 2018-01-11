@@ -64,12 +64,6 @@ export default {
       this.$router.push('/register');
 
     }
-  },
-
-  computed() {
-
-    this.$forceUpdate();
-
   }
 
 

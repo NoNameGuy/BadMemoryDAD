@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
     console.log('client has connected');
 
     socket.on('create_game', function (data){
-    	let game = games.createGame(socket.id);
+    	let game = games.createGame(data.playerName, socket.id);
 		socket.join(game.gameID);
         console.log('game was created');
 		// Notifications to the client

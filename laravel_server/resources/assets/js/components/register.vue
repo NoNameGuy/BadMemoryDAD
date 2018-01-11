@@ -66,14 +66,7 @@ export default {
 
       });
     }
-  },
-  computed(){
-
-    this.$forceUpdate();
-
   }
-
-
 }
 
 

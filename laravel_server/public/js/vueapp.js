@@ -46787,12 +46787,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     register: function register() {
       this.$router.push('/register');
     }
-  },
-
-  computed: function computed() {
-
-    this.$forceUpdate();
   }
+
 });
 
 /***/ }),
@@ -47241,10 +47237,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log('Login Error: ' + registerError);
       });
     }
-  },
-  computed: function computed() {
-
-    this.$forceUpdate();
   }
 });
 
@@ -48120,7 +48112,7 @@ var render = function() {
         return _c("tr", { key: game.gameID }, [
           _c("td", [_vm._v(_vm._s(game.gameID))]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(game.players[0]))]),
+          _c("td", [_vm._v(_vm._s(game.playerName))]),
           _vm._v(" "),
           _c("td", [
             _c(

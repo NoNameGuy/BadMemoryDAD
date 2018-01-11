@@ -8,7 +8,7 @@ class MemoryGame {
         this.gameEnded = false;
         this.gameStarted = false;
         this.gameOwner= gameOwnerSocket;
-        this.playerTurn = 0;
+        this.playerTurn = 1;
         this.winner = 0;
         this.boardImages;
         this.boardHidden;
@@ -16,10 +16,8 @@ class MemoryGame {
         this.players = [];
         this.playerScore = [];
         this.join(gameOwnerSocket);
-        this.piece1x=null;
-        this.piece2x=null;
-        this.piece1y=null;
-        this.piece2y=null;
+        this.piece1;
+        this.piece2;
         this.pontuacao = 0;
         this.winnerMessage = '';
         this.array = [];
@@ -31,7 +29,7 @@ class MemoryGame {
         case 2:
           this.line = 4;
           this.column = 4;
-          gameStarted = true;
+          this.gameStarted = true;
           this.array = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7];
           populateMainBoard();
           populateInvisibleBoard();
@@ -39,7 +37,7 @@ class MemoryGame {
         case 3:
           this.line = 4;
           this.column = 6;
-          gameStarted = true;
+          this.gameStarted = true;
           this.array = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11];
           populateMainBoard();
           populateInvisibleBoard();
@@ -47,7 +45,7 @@ class MemoryGame {
         case 4:
           this.line = 6;
           this.column = 6;
-          gameStarted = true;
+          this.gameStarted = true;
           this.array = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,
                         12,12,13,13,14,14,15,15,16,16,17,17];
           populateMainBoard();
@@ -66,10 +64,8 @@ class MemoryGame {
     }
 
     populateMainBoard() {
-      for(var i = 0; i < this.line; i++) {
-        for(var j = 0; j < this.column; j++) {
-          this.boardImages[i][j] = "hidden";
-        }
+      for(var i = 0; i < this.line*this.column; i++) {
+          this.boardImages[i] = "hidden";
       }
     }
 
@@ -78,7 +74,7 @@ class MemoryGame {
       console.log(array);
 
       for (var i = 0; i < array.length; i++) {
-        this.boardImagens[i] = this.array[i];
+        this.boardImages[i] = this.array[i];
       }
       console.log(this.boardHidden);
 
@@ -86,10 +82,11 @@ class MemoryGame {
 
     join(socketId){ // chamar pelo socket id do user
       for(var i = 0; i < this.players.lenght; i++){
-        if (this.players[i] == socketId) { //compara o socket id dos jogadores
+        if (this.players[i] == socketId) { // se já estiver no jogo, então não conta
           return;
         }
       }
+      // assegurado que o player é novo no jogo/lobby
         this.numPlayers ++; //add 1 ao contador de jogadores
         this.players.push(socketId); // push do socket id do novo jogador para o jogo a que se juntou
     }
@@ -134,58 +131,75 @@ class MemoryGame {
 
     isBoardComplete(){
 
-        for(let x=0; x<this.line; x++){
-            for(let y=0; y<this.column; y++){
-                if (this.boardHidden[x][y] == "hidden") { //se houver alguma img hidden em x e/ou y entao a board nao esta completa logo nao acabou o Jogo
+        for(var i=0; i<this.boardImages.lenght; i++){
+                if (this.boardImages[i] == "hidden") { //se houver alguma img hidden entao a board nao esta completa logo nao acabou o Jogo
                     return false;
                 }
             }
-        }
+
         return true;
-    }
-
-    calculatePlayerScore(player){
-
-        //calcula o score com base na posiçao x e y que carregou
-      for(let x=0; x<this.line; x++){
-        for(let y=0; y<this.column; y++){
-          if (this.boardImages[x][y] == player){
-            this.playerScore[player]++;
-          }
-
-        }
-      }
-
     }
 
     play(playerNumber, index){
 
       //jogo ja começou
+      if(!this.gameStarted) {
+        return false ;
+      }
 
       //jogo ainda nao acabou
+      if(this.gameEnded) {
+        return false;
+      }
 
       //Estado da quadricula ? hidden ? Jogada valida
+      if (this.boardImages[index] == "hidden") {
+        return false;
+      }
 
       //player turn = 1 entao 1ª jogada do jogador e tem de virar a 2ª peça
           // SE o player turn =1 vira 1ª carta e playerturn ++
+      if (this.playerTurn == 1) {
+        this.piece1 = index;
+        this.boardImages[index] = this.boardHidden[index];
+        this.playerTurn++;
+        console.log("1ª play");
+      } else if (this.playerTurn == 2) {
+        // se playerTurn = 2 vira se a 2ª carta
+        this.piece2 = index;
+        this.boardImages[index] = this.boardHidden[index];
+        isPair(playerNumber);
+        this.playerTurn = 1;
+        console.log("2ª play");
+      }
+      return true;
+    }
 
-      // se playerTurn = 2 vira se a 2ª carta
+    isPair(playerNumber) {
+      if (this.boardImages[this.piece1] === this.boardImages[this.piece2]) {
+        console.log("You found a pair!");
+        // pontuação ++
+        this.playerScore[playerNumber]++;
+        // main board fica virado para cima nas duas posições
+        this.boardImages[this.piece1] = this.boardHidden[this.piece1];
+        this.boardImages[this.piece2] = this.boardHidden[this.piece2];
+      } else {
+        console.log("Nice try, it's not a pair! MUAHAHAHAHAHAH");
+        this.boardImages[this.piece1] = "hidden";
+        this.boardImages[this.piece2] = "hidden";;
 
-      // obter o "nome" das 2 cartas e comprar
+        nextTurn(playerNumber);
+      }
+    }
 
-      // se for par (as duas o mesmo nome) entao pontuaçao++, cartas escolhidas visiveis sempre, e o plyer tem novo playerTurn
-
-      //se nao passa a jogada pro proximo jogador.
-      // cartas hidden (mesmo as que foram escolhidas) player playerTurn=1
-
-      //return true
-
-
-
+    nextTurn() {
+      this.players[playerNumber++];
+      if(this.playerNumber > this.players.lenght) {
+        this.playerNumber = 0;
+      }
     }
 
     shuffleArray(){
-            // shuffle do array array
       var i = 0;
       var j = 0;
       var temp = null;

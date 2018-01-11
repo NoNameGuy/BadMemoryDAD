@@ -16,7 +16,7 @@ class GameList {
     createGame(socketID) {
     	this.contadorID = this.contadorID+1;
     	var game = new MemoryGame(this.contadorID, socketID);
-    	//game.players[1] = socketID;
+			
     	this.games.set(game.gameID, game);
     	return game;
     }
