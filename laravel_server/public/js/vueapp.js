@@ -48120,7 +48120,7 @@ var render = function() {
         return _c("tr", { key: game.gameID }, [
           _c("td", [_vm._v(_vm._s(game.gameID))]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(game.player1))]),
+          _c("td", [_vm._v(_vm._s(game.players[0]))]),
           _vm._v(" "),
           _c("td", [
             _c(
