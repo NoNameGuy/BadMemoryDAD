@@ -36,6 +36,7 @@ class UserControllerAPI extends Controller
                 'password' => 'min:3'
             ]);
         $user = new User();
+        $user->username = $request->email;
         $user->fill($request->all());
         $user->password = Hash::make($user->password);
         $user->save();
@@ -50,6 +51,7 @@ class UserControllerAPI extends Controller
                 'password' => 'min:3'
             ]);
         $user = User::findOrFail($id);
+        $user->username = $request->email;
         $user->update($request->all());
         return new UserResource($user);
     }

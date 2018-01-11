@@ -24,9 +24,11 @@ class UsersTableSeeder extends Seeder
         static $password;
         $createdAt = Carbon\Carbon::now()->subDays(30);
         $updatedAt = $faker->dateTimeBetween($createdAt);
+        $emailUsername = $faker->unique()->safeEmail;
         return [
             'name' => $faker->name,
-            'email' => $faker->unique()->safeEmail,
+            'email' => $emailUsername,
+            'username' => $emailUsername,
             'password' => $password ?: $password = bcrypt('secret'),
             'remember_token' => str_random(10),
             'created_at' => $createdAt,

@@ -52,7 +52,8 @@ export default {
     	axios.post('/api/register', {
     							email : this.user.email,
     							password : this.user.password,
-    							name : this.user.name
+    							name : this.user.name,
+                  username : this.user.email
     						}).then(response => {
                   console.log(response);
                   this.$router.push('/');
@@ -65,6 +66,11 @@ export default {
 
       });
     }
+  },
+  computed(){
+
+    this.$forceUpdate();
+
   }
 
 

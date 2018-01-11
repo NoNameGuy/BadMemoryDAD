@@ -15,6 +15,7 @@ class InitialMigrations extends Migration
     {
 
         Schema::create('users', function (Blueprint $table) {
+            $table->string('username')->unique();
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();

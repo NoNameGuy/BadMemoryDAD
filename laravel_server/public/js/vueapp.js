@@ -46787,8 +46787,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     register: function register() {
       this.$router.push('/register');
     }
-  }
+  },
 
+  computed: function computed() {
+
+    this.$forceUpdate();
+  }
 });
 
 /***/ }),
@@ -46995,7 +46999,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47033,6 +47037,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				message: function message() {
 						return "Sure you want logout?";
 				}
+				//this.$forceUpdate();
+
 		},
 		methods: {
 				logout: function logout() {
@@ -47223,7 +47229,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.post('/api/register', {
         email: this.user.email,
         password: this.user.password,
-        name: this.user.name
+        name: this.user.name,
+        username: this.user.email
       }).then(function (response) {
         console.log(response);
         _this.$router.push('/');
@@ -47234,8 +47241,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log('Login Error: ' + registerError);
       });
     }
-  }
+  },
+  computed: function computed() {
 
+    this.$forceUpdate();
+  }
 });
 
 /***/ }),

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 define('YOUR_SERVER_URL', 'http://badmemory.test');
 // Check "oauth_clients" table for next 2 values:
 define('CLIENT_ID', '2');
-define('CLIENT_SECRET','KN0kCLNhCPFfjz8PTLqnaGU4Kn6qzu3ToRtcHIk5');
+define('CLIENT_SECRET','aSS3IeN5y7kSasdsArpbWpMLIdk1FMnEfYph2oAR');
 
 class LoginControllerAPI extends Controller
 {

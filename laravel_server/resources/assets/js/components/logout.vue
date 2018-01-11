@@ -24,6 +24,7 @@ export default {
 						message(){
 								return "Sure you want logout?";
 						}
+            //this.$forceUpdate();
     },
     methods: {
 			logout() {
