@@ -55,7 +55,7 @@ export default {
     							name : this.user.name
     						}).then(response => {
                   console.log(response);
-                  //this.$router.push('/');
+                  this.$router.push('/');
     	}).catch(registerError => {
         // Something went wrong!
         //this.registerError = true;

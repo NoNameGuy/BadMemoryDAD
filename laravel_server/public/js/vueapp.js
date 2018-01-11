@@ -46165,8 +46165,6 @@ exports.push([module.i, "\ntr.activerow[data-v-0228aba0] {\n  \t\tbackground: #1
 //
 //
 //
-//
-//
 
 // Component code (not registered)
 module.exports = {
@@ -46215,8 +46213,6 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(user.email))]),
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(user.age))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.department))]),
             _vm._v(" "),
             _c("td", [
               _c(
@@ -46293,8 +46289,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
         _c("th", [_vm._v("Age")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Department")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
@@ -46396,7 +46390,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -46437,15 +46431,9 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 module.exports = {
-    props: ['user', 'departments'],
+    props: ['user'],
     methods: {
         saveUser: function saveUser() {
             var _this = this;
@@ -46572,48 +46560,6 @@ var render = function() {
           }
         }
       })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "department_id" } }, [_vm._v("Department:")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.user.department_id,
-              expression: "user.department_id"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { id: "department_id", name: "department_id" },
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.$set(
-                _vm.user,
-                "department_id",
-                $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-              )
-            }
-          }
-        },
-        _vm._l(_vm.departments, function(department) {
-          return _c("option", { domProps: { value: department.id } }, [
-            _vm._v(" " + _vm._s(department.name) + " ")
-          ])
-        })
-      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
@@ -47216,13 +47162,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     register: function register() {
+      var _this = this;
+
       axios.post('/api/register', {
         email: this.user.email,
         password: this.user.password,
         name: this.user.name
       }).then(function (response) {
         console.log(response);
-        //this.$router.push('/');
+        _this.$router.push('/');
       }).catch(function (registerError) {
         // Something went wrong!
         //this.registerError = true;

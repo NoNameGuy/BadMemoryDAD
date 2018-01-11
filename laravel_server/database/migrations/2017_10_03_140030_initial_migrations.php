@@ -12,21 +12,14 @@ class InitialMigrations extends Migration
      * @return void
      */
     public function up()
-    {/*
-        Schema::create('departments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->unique();
-            $table->timestamps();
-        });
-        */
+    {
+
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            //$table->integer('department_id')->unsigned();
-            //$table->foreign('department_id')->references('id')->on('departments');
             $table->timestamps();
         });
         Schema::create('password_resets', function (Blueprint $table) {
