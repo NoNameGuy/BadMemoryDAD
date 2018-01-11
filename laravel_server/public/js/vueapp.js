@@ -46995,7 +46995,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47036,24 +47036,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		methods: {
 				logout: function logout() {
-						console.log("estou dentro da logout function");
-						// apagar o token da localStorage
-						var logConfig = {
+						var _this = this;
+
+						var head = {
 
 								headers: {
-										'Authorization': 'Bearer ' + window.localStorage.getItem('access_token')
-										// 'Accept' : 'application/json',
+										'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+										'Accept': 'application/json'
 								}
 						};
-						console.log("antes do axios");
-						console.log(logConfig);
 
-						axios.post('api/logout', null, logConfig).then(function (response) {
+						axios.post('/api/logout', null, head).then(function (response) {
 								if (response.status == 200) {
-										window.localStorage.removeItem('access_token');
+										window.localStorage.removeItem('token');
 										console.log("Token removed");
+										_this.$router.push('/login');
 								}
-								console.log(response);
 						}).catch(function (error) {
 								console.log(error);
 						});
@@ -47072,7 +47070,9 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("p", [_vm._v(_vm._s(_vm.message))]),
+        _c("h1", [_vm._v("Logout")]),
+        _vm._v(" "),
+        _c("p", [_c("em", [_vm._v(_vm._s(_vm.message))])]),
         _vm._v(" "),
         _c(
           "div",

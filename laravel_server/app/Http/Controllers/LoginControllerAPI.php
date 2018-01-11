@@ -34,11 +34,10 @@ class LoginControllerAPI extends Controller
     }
 
     public function logout()
-    {
-      echo "LCAPI";
-        \Auth::guard('api')->user()->token()->revoke();
-        \Auth::guard('api')->user()->token()->delete();
-        return response()->json(['msg'=>'Token revoked'], 200);
-    }
+     {
+       \Auth::guard('api')->user()->token()->revoke();
+       \Auth::guard('api')->user()->token()->delete();
+       return response()->json(['msg'=>'OK LCI'], 200);
+     }
 
 }

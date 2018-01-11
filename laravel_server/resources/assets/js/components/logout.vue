@@ -1,17 +1,17 @@
 <template>
-	<div class="container">
-		<div class="row">
-	        <div class="col-md-8 col-md-offset-2">
-	            <p>{{message}}</p>
-	            <div class="text-left">
-	                <button class="btn btn-primary"  v-on:click="logout()">Logout</button>
-	                <router-link class="btn btn-default" to="/users">Cancel</router-link>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>Logout</h1>
+                <p><em>{{message}}</em></p>
+                <div class="text-left">
+                    <button class="btn btn-primary"  v-on:click="logout()">Logout</button>
+                    <router-link class="btn btn-default" to="/users">Cancel</router-link>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
-
 
 <script type="text/javascript">
 export default {
@@ -26,26 +26,22 @@ export default {
 						}
     },
     methods: {
-    	logout: function(){
-				console.log("estou dentro da logout function");
-    		// apagar o token da localStorage
-    		let logConfig = {
+			logout() {
+			 let head = {
 
-            headers: {
-							'Authorization': 'Bearer ' + window.localStorage.getItem('access_token'),
-							// 'Accept' : 'application/json',
-					}
-				};
-				console.log("antes do axios");
-				console.log(logConfig);
+					 headers: {
+							 'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+							 'Accept': 'application/json',
+					 },
+			 };
 
-					axios.post('api/logout', null, logConfig)
+					axios.post('/api/logout', null, head)
 					.then(response => {
 					if(response.status == 200){
-							window.localStorage.removeItem('access_token');
+							window.localStorage.removeItem('token');
 							console.log("Token removed");
+							this.$router.push('/login');
 					}
-					console.log(response);
 			}).catch(error => {
 					console.log(error);
 			});
