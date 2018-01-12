@@ -71,6 +71,7 @@ io.on('connection', function (socket) {
 			return;
 		}
 		var playerNumber = 0;
+/*
 		if(game.player1SocketID == socket.id){
 				playerNumber = 1;
 		}else if(game.player2SocketID == socket.id){
@@ -80,6 +81,7 @@ io.on('connection', function (socket) {
 		if(game.play(playerNumber, data.index)){
 				io.to(game.gameID).emit('game_change', game);
 		}
+*/
 });
 
 
