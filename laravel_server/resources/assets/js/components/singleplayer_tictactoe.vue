@@ -62,15 +62,17 @@
 						this.boardImagens[i] = array[i];
 					}
 
+					this.populateMainBoard();
 
-						for (var i = 0; i < this.board.length; i++) {
-							this.board[i] = "hidden";
-						}
 					// console.log("created  imagens      " + this.boardImagens);
-
 
 				},
         methods: {
+					populateMainBoard: function() {
+						for (var i = 0; i < this.board.length; i++) {
+							this.board[i] = "hidden";
+						}
+					},
 
             clickPiece: function(index) {
 							// console.log("created  clickepiece      " + this.boardImagens);
@@ -93,7 +95,7 @@
 								console.log(this.boardImagens[index]);
 								this.showSuccess = true;
 								this.showSuccess = "Para jogar novamente, feche esta cena!";
-								
+
 								if (this.boardImagens[this.piece1] == this.boardImagens[this.piece2]){ // comparar no vetor boardImagens com as posições do arrayJogadas
 									// bloqueio das posições selecionadas
 									// pontuação ++;
@@ -104,24 +106,30 @@
 									console.log("imagens iguais");
 								} else { // quer dizer que são diferentes
 									// volta-se a virar as cartas para imagem limpa
-									this.board[this.piece1] = "hidden";
-									this.board[this.piece2] = "hidden";
-									this.piece1 = null;
-									this.piece2 = null;
+									setTimeout(this.resetData, 2000);
+									// this.board[this.piece1] = "hidden";
+									// this.board[this.piece2] = "hidden";
+									// this.piece1 = null;
+									// this.piece2 = null;
+									// console.log("imagens diferentes");
 
-									console.log("imagens diferentes");
 								}
 								this.numeroJogada = 0;
-
-
-
+								if (this.isBoardComplete()) {
+									this.successMessage = "Congratz, you won!";
+									this.gameEnded = true;
+									this.showSuccess = true;
+								}
 							}
 							index = null;
-
-
-
             },
-
+						resetData: function() {
+							this.board[this.piece1] = "hidden";
+							this.board[this.piece2] = "hidden";
+							this.piece1 = null;
+							this.piece2 = null;
+							console.log("imagens diferentes");
+						},
 						pieceImageURL: function (piece) {
                 var imgSrc = String(piece);
 								//console.log(imgSrc);
@@ -137,6 +145,34 @@
                 this.failMessage= '';
                 this.currentValue= 1;
                 this.gameEnded= false;
+								this.numeroJogada = 0,
+								this.piece1 = 0,
+								this.piece2 = 0,
+								this.pontuacao = 0,
+								this.boardImagens = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+								// populate array
+								var array = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
+								// shuffle do array array
+								var i = 0;
+								var j = 0;
+								var temp = null;
+
+								for (i = array.length - 1; i > 0; i--) {
+										j = Math.floor(Math.random() * (i + 1));
+										temp = array[i];
+										array[i] = array[j];
+										array[j] = temp;
+								}
+								// console.log("created        " + array);
+
+								for (var i = 0; i < array.length; i++) {
+									this.boardImagens[i] = array[i];
+								}
+
+								this.populateMainBoard();
+
+								// console.log("created  imagens      " + this.boardImagens);
             },
             // ----------------------------------------------------------------------------------------
             // GAME LOGIC - START
@@ -160,14 +196,12 @@
                 return false;
             },
             isBoardComplete:function(){
-                var returnValue = true;
-                this.board.forEach(function(element) {
-                    if (element === 0) {
-                        returnValue = false;
-                        return;
-                    }
-                });
-                return returnValue;
+							for(let i=0; i<this.board.lenght; i++){
+										if (this.board[i] == "hidden") { //se houver alguma img hidden entao a board nao esta completa logo nao acabou o Jogo
+												return false;
+										}
+								}
+							return true;
             },
 
 						playerName: function(playerNumber){
