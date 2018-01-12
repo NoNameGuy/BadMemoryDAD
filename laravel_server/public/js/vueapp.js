@@ -48112,8 +48112,6 @@ var render = function() {
         return _c("tr", { key: game.gameID }, [
           _c("td", [_vm._v(_vm._s(game.gameID))]),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(game.playerName))]),
-          _vm._v(" "),
           _c("td", [
             _c(
               "a",
@@ -48245,7 +48243,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.gameseparator[data-v-d614d384]{\n    border-style: solid;\n    border-width: 2px 0 0 0;\n    border-color: black;\n}\n", ""]);
+exports.push([module.i, "\n.gameboard[data-v-d614d384]{\n    border-style: solid;\n    border-width: 2px 0 0 0;\n    border-color: black;\n}\n", ""]);
 
 // exports
 
@@ -48256,6 +48254,9 @@ exports.push([module.i, "\n.gameseparator[data-v-d614d384]{\n    border-style: s
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -48341,6 +48342,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
+        startGame: function startGame(game) {
+            this.$socket.emit('start_game', { gameID: game.gameID });
+        },
         pieceImageURL: function pieceImageURL(pieceNumber) {
             var imgSrc = String(pieceNumber);
             return 'img/' + imgSrc + '.png';
@@ -48348,16 +48352,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         closeGame: function closeGame() {
             this.$parent.close(this.game);
         },
-        clickPiece: function clickPiece(index) {
-            if (!this.game.gameEnded) {
-                if (this.game.playerTurn != this.ownPlayerNumber) {
-                    alert("It's not your turn to play");
-                } else {
-                    if (this.game.board[index] == 0) {
-                        this.$parent.play(this.game, index);
-                    }
-                }
+        clickPiece: function clickPiece(game, index) {
+            if (this.game.boardImages[index] == "hidden") {
+                this.$parent.play(this.game, index);
             }
+            this.$socket.emit('play', { gameID: game.gameID, index: index });
         }
     }
 });
@@ -48370,7 +48369,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "gameseparator" }, [
+  return _c("div", { staticClass: "gameboard" }, [
     _c("div", [
       _c("h2", { staticClass: "text-center" }, [
         _vm._v("Game " + _vm._s(_vm.game.gameID))
@@ -48406,10 +48405,28 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c("div", [
+        _c("p", [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-xs btn-success",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.startGame(_vm.game)
+                }
+              }
+            },
+            [_vm._v("Start Game")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "board" },
-        _vm._l(_vm.game.board, function(piece, index) {
+        _vm._l(_vm.game.boardImages, function(piece, index) {
           return _c("div", [
             _c("img", {
               attrs: { src: _vm.pieceImageURL(piece) },

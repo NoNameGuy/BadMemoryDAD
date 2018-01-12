@@ -7,3 +7,20 @@
 .error {
 	color: red;
 }
+
+
+.board {
+  max-width: 450px;
+  margin: 0 auto;
+  border-style: solid;
+  border-width: 0px 0 0 0px;
+  border-color: black;
+}
+
+.board img {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    padding: 0;
+    border-style: none;
+}

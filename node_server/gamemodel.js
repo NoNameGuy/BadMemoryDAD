@@ -10,8 +10,8 @@ class MemoryGame {
         this.gameOwner= gameOwnerSocket;
         this.playerTurn = 1;
         this.winner = 0;
-        this.boardImages;
-        this.boardHidden;
+        this.boardImages = [];
+        this.boardHidden = [];
         this.numPlayers = 0;
         this.players = [];
         this.playerScore = [];
@@ -23,65 +23,34 @@ class MemoryGame {
         this.array = [];
     }
 
-    startGame(){
-      switch(this.numPlayers) {
-        case 1:
-        case 2:
-          this.line = 4;
-          this.column = 4;
-          this.gameStarted = true;
-          this.array = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7];
-          populateMainBoard();
-          populateInvisibleBoard();
-          break;
-        case 3:
-          this.line = 4;
-          this.column = 6;
-          this.gameStarted = true;
-          this.array = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11];
-          populateMainBoard();
-          populateInvisibleBoard();
-          break;
-        case 4:
-          this.line = 6;
-          this.column = 6;
-          this.gameStarted = true;
-          this.array = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,
-                        12,12,13,13,14,14,15,15,16,16,17,17];
-          populateMainBoard();
-          populateInvisibleBoard();
-          break;
-      }
-      zerarPontuacoes();
-      this.winner = 0;
-      this.gameEnded = false;
-    }
+
 
     zerarPontuacoes() {
-      for ( var i = 0; i < this.playerScore.lenght; i++ ) {
+      for ( let i = 0; i < this.playerScore.lenght; i++ ) {
         this.playerScore[i] = 0;
       }
     }
 
     populateMainBoard() {
-      for(var i = 0; i < this.line*this.column; i++) {
+      let max = this.line*this.column;
+      for(let i = 0; i < max; i++) {
           this.boardImages[i] = "hidden";
       }
     }
 
     populateInvisibleBoard() {
-      shuffleArray();
-      console.log(array);
+      this.shuffleArray();
+      //console.log(this.array);
 
-      for (var i = 0; i < array.length; i++) {
-        this.boardImages[i] = this.array[i];
+      for (let i = 0; i < this.array.length; i++) {
+        this.boardHidden[i] = this.array[i];
       }
       console.log(this.boardHidden);
 
     }
 
     join(socketId){ // chamar pelo socket id do user
-      for(var i = 0; i < this.players.lenght; i++){
+      for(let i = 0; i < this.players.lenght; i++){
         if (this.players[i] == socketId) { // se já estiver no jogo, então não conta
           return;
         }
@@ -94,14 +63,7 @@ class MemoryGame {
     checkGameEnded(){
         //1 Board complete ??
 
-        if (this.isBoardComplete()) {
-          //
-          // for(let i=0; i<this.numPlayers; i++){
-          //   this.playerScore[i] = 0; //inicializa a pontuaçao do player a 0
-          //   this.calculateScore(i); //calcula o score do player
-          // }
-
-
+        if (this.isBoardComplete() && this.gameEnded) {
           // buscar o player com maior pontuação
           for(let a = 0; a < this.players.lenght; a++) {
             if (this.playerScore[a] > this.pontuacao) {
@@ -110,20 +72,11 @@ class MemoryGame {
             }
           }
 
-          // mostrá-lo
-          console.log('player' + this.players[this.winner]);
-          console.log('position ' + this.winner);
-          console.log('pontuacao: ' + this.pontuacao);
-          this.winnerMessage = this.players[this.winner] + ' won the game with ' + this.pontuacao + ' pontos.';
-          console.log('winnerMessage: ' + this.winnerMessage);
-
           this.gameEnded = true;
+
 
           return true;
         }
-
-
-        //ou se empataram
 
         //se nao estiver complete return false
         return false;
@@ -131,11 +84,11 @@ class MemoryGame {
 
     isBoardComplete(){
 
-        for(var i=0; i<this.boardImages.lenght; i++){
-                if (this.boardImages[i] == "hidden") { //se houver alguma img hidden entao a board nao esta completa logo nao acabou o Jogo
-                    return false;
-                }
-            }
+        for(let i=0; i<this.boardImages.lenght; i++){
+              if (this.boardImages[i] == "hidden") { //se houver alguma img hidden entao a board nao esta completa logo nao acabou o Jogo
+                  return false;
+              }
+          }
 
         return true;
     }
@@ -149,34 +102,42 @@ class MemoryGame {
 
       //jogo ainda nao acabou
       if(this.gameEnded) {
+
         return false;
       }
 
       //Estado da quadricula ? hidden ? Jogada valida
-      if (this.boardImages[index] == "hidden") {
+      if (this.boardImages[index] != "hidden") {
+
         return false;
       }
 
       //player turn = 1 entao 1ª jogada do jogador e tem de virar a 2ª peça
           // SE o player turn =1 vira 1ª carta e playerturn ++
+
       if (this.playerTurn == 1) {
-        this.piece1 = index;
-        this.boardImages[index] = this.boardHidden[index];
-        this.playerTurn++;
         console.log("1ª play");
-      } else if (this.playerTurn == 2) {
-        // se playerTurn = 2 vira se a 2ª carta
-        this.piece2 = index;
+        this.piece1 = index;
+        console.log(this.piece1);
         this.boardImages[index] = this.boardHidden[index];
-        isPair(playerNumber);
-        this.playerTurn = 1;
+        console.log(this.boardImages[this.piece1]);
+        this.playerTurn++;
+      } else {
+        // se playerTurn = 2 vira se a 2ª carta
         console.log("2ª play");
+        this.piece2 = index;
+        console.log(this.piece2);
+        this.boardImages[index] = this.boardHidden[index];
+        console.log(this.boardImages[this.piece2]);
+        this.isPair(playerNumber);
+        this.playerTurn = 1;
+        this.checkGameEnded();
       }
       return true;
     }
 
     isPair(playerNumber) {
-      if (this.boardImages[this.piece1] === this.boardImages[this.piece2]) {
+      if (this.boardHidden[this.piece1] === this.boardHidden[this.piece2]) {
         console.log("You found a pair!");
         // pontuação ++
         this.playerScore[playerNumber]++;
@@ -188,7 +149,7 @@ class MemoryGame {
         this.boardImages[this.piece1] = "hidden";
         this.boardImages[this.piece2] = "hidden";;
 
-        nextTurn(playerNumber);
+        this.nextTurn(playerNumber);
       }
     }
 
@@ -204,7 +165,7 @@ class MemoryGame {
       var j = 0;
       var temp = null;
 
-      for (i = this.array.length - 1; i > 0; i--) {
+      for (let i = this.array.length - 1; i > 0; i--) {
           j = Math.floor(Math.random() * (i + 1));
           temp = this.array[i];
           this.array[i] = this.array[j];
@@ -212,6 +173,40 @@ class MemoryGame {
       }
       return this.array;
 
+    }
+
+    startGame(){
+      switch(this.numPlayers) {
+        case 1:
+        case 2:
+          this.line = 4;
+          this.column = 4;
+          this.gameStarted = true;
+          this.array = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7];
+          this.populateMainBoard();
+          this.populateInvisibleBoard();
+          break;
+        case 3:
+          this.line = 4;
+          this.column = 6;
+          this.gameStarted = true;
+          this.array = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11];
+          this.populateMainBoard();
+          this.populateInvisibleBoard();
+          break;
+        case 4:
+          this.line = 6;
+          this.column = 6;
+          this.gameStarted = true;
+          this.array = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,
+                        12,12,13,13,14,14,15,15,16,16,17,17];
+          this.populateMainBoard();
+          this.populateInvisibleBoard();
+          break;
+      }
+      this.zerarPontuacoes();
+      this.winner = 0;
+      this.gameEnded = false;
     }
 
 }

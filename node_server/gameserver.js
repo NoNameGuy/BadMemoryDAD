@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
     console.log('client has connected');
 
     socket.on('create_game', function (data){
-    	let game = games.createGame(data.playerName, socket.id);
+    	let game = games.createGame(socket.id);
 		socket.join(game.gameID);
         console.log('game was created');
 		// Notifications to the client
@@ -70,18 +70,18 @@ io.on('connection', function (socket) {
 			socket.emit('invalid_play', {'type': 'Invalid_Game', 'game': null});
 			return;
 		}
-        let playerSocket = socket.id;
-		/*if (playerTurn > game.players.length || playerTurn < 0) {
-			socket.emit('invalid_play', {'type': 'Invalid_Player', 'game': game});
-			return;
-		}*/
-		if (game.play( playerSocket, data.x, data.y)) {
-			io.to(game.gameID).emit('game_changed', game);
-		} else {
-			socket.emit('invalid_play', {'type': 'Invalid_Play', 'game': game});
-			return;
+		var playerNumber = 0;
+		if(game.player1SocketID == socket.id){
+				playerNumber = 1;
+		}else if(game.player2SocketID == socket.id){
+				playerNumber = 2;
 		}
-    });
+
+		if(game.play(playerNumber, data.index)){
+				io.to(game.gameID).emit('game_change', game);
+		}
+});
+
 
     socket.on('get_game', function (data){
 		let game = games.gameByID(data.gameID);
