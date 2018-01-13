@@ -47471,7 +47471,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47589,31 +47589,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 																				this.boardImagens[this.piece2] = this.boardImagens[this.piece2];
 																				// same player playing
 																				console.log("imagens iguais");
+																				if (this.checkGameEnded()) {
+																								this.successMessage = "Congratz, you won!";
+																								this.gameEnded = true;
+																								this.showSuccess = true;
+																				}
 																} else {
 																				// quer dizer que são diferentes
 																				// volta-se a virar as cartas para imagem limpa
-																				setTimeout(this.resetData, 2000);
-																				// this.board[this.piece1] = "hidden";
-																				// this.board[this.piece2] = "hidden";
-																				// this.piece1 = null;
-																				// this.piece2 = null;
-																				// console.log("imagens diferentes");
+																				console.log("wait 2 seconds to play again!");
+																				setTimeout(this.resetData, 2000); // non blocking operation!!
+																				this.board[this.piece1] = "hidden";
+																				this.board[this.piece2] = "hidden";
+																				// console.log("piece1 = " + this.piece1);
+																				// console.log("piece2 = " + this.piece2);
+																				this.piece1 = null;
+																				this.piece2 = null;
+																				console.log("imagens diferentes");
 																}
 																this.numeroJogada = 0;
-																if (this.isBoardComplete()) {
-																				this.successMessage = "Congratz, you won!";
-																				this.gameEnded = true;
-																				this.showSuccess = true;
-																}
 												}
 												index = null;
 								},
 								resetData: function resetData() {
-												this.board[this.piece1] = "hidden";
-												this.board[this.piece2] = "hidden";
-												this.piece1 = null;
-												this.piece2 = null;
-												console.log("imagens diferentes");
+												console.log("Wait 2 Seconds. Timeout fucntion()");
+												// this.board[this.piece1] = "hidden";
+												// this.board[this.piece2] = "hidden";
+												// this.piece1 = null;
+												// this.piece2 = null;
 								},
 								pieceImageURL: function pieceImageURL(piece) {
 												var imgSrc = String(piece);
