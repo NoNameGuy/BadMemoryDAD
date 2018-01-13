@@ -1,3 +1,4 @@
+php
 <template>
 <form @submit.prevent="register(user)">
 
@@ -55,6 +56,7 @@ export default {
     							name : this.user.name,
                   username : this.user.email
     						}).then(response => {
+                  // enviar email de autenticação
                   console.log(response);
                   this.$router.push('/');
     	}).catch(registerError => {

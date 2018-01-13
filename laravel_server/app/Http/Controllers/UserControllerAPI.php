@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Jsonable;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\DB;
 
+use App\Mail\Mail;
 use App\User;
 use App\StoreUserRequest;
 use Hash;
@@ -40,6 +41,11 @@ class UserControllerAPI extends Controller
         $user->fill($request->all());
         $user->password = Hash::make($user->password);
         $user->save();
+
+        auth()->login($user);
+
+        \Mail::to($user)->send(new Mail);
+
         return response()->json(new UserResource($user), 201);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Mail;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -70,4 +71,15 @@ class RegisterController extends Controller
             'username' => $data['email']
         ]);
     }
+
+    protected function sendEmail(Request $request)
+    {
+      $message = "Please click here to activate your account";
+
+      mail($request['email'], 'MemoryGame Activation Account', $message);
+    }
+
+
+
+
 }

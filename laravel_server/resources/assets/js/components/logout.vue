@@ -1,4 +1,4 @@
-<template>
+<template v-if="JSON.parse(localStorage.getItem('token')) != null">
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -31,7 +31,7 @@ export default {
 			 let head = {
 
 					 headers: {
-							 'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+							 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('token')),
 							 'Accept': 'application/json',
 					 },
 			 };
@@ -39,8 +39,8 @@ export default {
 					axios.post('/api/logout', null, head)
 					.then(response => {
 					if(response.status == 200){
-							window.localStorage.removeItem('token');
-							console.log("Token removed");
+							window.localStorage.clear();
+							console.log("logout sucessfull");
 							this.$router.push('/login');
 					}
 			}).catch(error => {

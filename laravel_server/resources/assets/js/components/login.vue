@@ -1,4 +1,4 @@
-<template v-if="localStorage.getItem('token') == null">
+<template v-if=" JSON.parse(localStorage.getItem('token')) == null">
 
   <form @submit.prevent="login(user)">
       <div class="text-left">
@@ -44,13 +44,16 @@ export default {
         headers: {'Content-Type' : 'application/json'}
       }).then(response => {
         // buscar o token do user logado
-        console.log('Response: ' + response);
+        console.log('Response: ');
+        console.log(response);
         let token = response.data.access_token;
         // guardar na localStorage o token
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', JSON.stringify(token));
         // user já se encontra logado e com a sessão guardada
 
         this.$router.push('/');
+        app.$forceUpdate();
+        console.log("after update view");
       }).catch(loginError => {
         // Something went wrong!
         console.log('Login Error: ' + loginError);

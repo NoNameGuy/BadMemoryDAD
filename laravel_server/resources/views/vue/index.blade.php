@@ -4,13 +4,12 @@
 
 @section('content')
     <router-link to="/users">Users</router-link> -
-    @if(!Auth::user())
+    {{-- @if(!Auth::user())--}}
 	    <router-link to="/login">Login</router-link> -
-
 	    <router-link to="/register">Register</router-link> -
-    @else
+    {{-- @else--}}
     	<router-link to="/logout">Logout</router-link> -
-    @endif
+    {{-- @endif--}}
     <router-link to="/singletictactoe">SinglePlayer TicTacToe</router-link> -
     <router-link to="/multitictactoe">Multiplayer TicTacToe</router-link>
 
